@@ -1,22 +1,25 @@
 import express from "express";
-
 const app = express();
 
-
-function checkRoute(req,res,next){
-    console.log(req.url);
-    next()
+function checkAgeRouteMiddleware(req,res,next){
+    if(!req.query.age || req.query.age<18){
+        res.send("You are not allowed");
+    }
+    else{
+        next();
+    }
 }
-
-app.use(checkRoute);
 
 app.get("/",(req,res)=>{
     res.send("This is the home page");
 })
-app.get("/user",(req,res)=>{
-    res.send("This is the User page");
+app.get("/login",(req,res)=>{
+    res.send("This is the login page");
 })
-app.get("/products",(req,res)=>{
+app.get("/users",checkAgeRouteMiddleware,(req,res)=>{
+    res.send("This is the user page")
+})
+app.get("/product",checkAgeRouteMiddleware,(req,res)=>{
     res.send("This is the product page");
 })
 app.listen(3000);
