@@ -1,18 +1,19 @@
-import express from "express";
-import userData from "./users.json" with { type: "json" };
-
+import express from 'express'
+import {MongoClient} from "mongodb"
 const app = express();
 
-app.get("/", (req, res) => {
-    res.send(userData)  
-});
-app.get("/user/:id",(req,res)=>{
-    const id = req.params.id;
-    console.log(id)
-    let filterData = userData.filter((user)=>user.id===id);
-    res.send(filterData);
-})
+const dbName="school";
+const url = "mongodb://localhost:27017"
 
-app.listen(4000, () => {
-    console.log("Server running on port 4000");
-});
+const client = new MongoClient(url);
+
+async function dbConnection (){
+    await client.connect();
+    const db =  client.db(dbName);
+    const collection = db.collection("students");
+    const result = await collection.find().toArray()
+    console.log(result);
+}
+dbConnection();
+app.listen(4000);
+
