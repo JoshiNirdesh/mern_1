@@ -1,19 +1,15 @@
 import express from 'express'
-import {MongoClient} from "mongodb"
+import mongoose from 'mongoose';
+import studentModel from './model/studentModel.js';
 const app = express();
 
-const dbName="school";
-const url = "mongodb://localhost:27017"
+await mongoose.connect("mongodb://localhost:27017/school").then(()=>{
+    console.log("Connected");
+})
 
-const client = new MongoClient(url);
+app.get("/",async(req,res)=>{
+    const studentData = await studentModel.find();
+    res.send(studentData);
+})
 
-async function dbConnection (){
-    await client.connect();
-    const db =  client.db(dbName);
-    const collection = db.collection("students");
-    const result = await collection.find().toArray()
-    console.log(result);
-}
-dbConnection();
 app.listen(4000);
-
