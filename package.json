@@ -1,5 +1,23 @@
 {
+  "name": "node",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/JoshiNirdesh/node#readme",
+  "bugs": {
+    "url": "https://github.com/JoshiNirdesh/node/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoshiNirdesh/node.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
-    "mongodb": "^7.0.0"
+    "express": "^5.2.1"
   }
 }
